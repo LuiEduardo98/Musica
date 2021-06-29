@@ -11,7 +11,7 @@ export default function TopMusicaStack() {
             <Stack.Screen
                 name="top-musica"
                 component={TopMusica}
-                options={{title: "Top-Musica"}}
+                options={{title: "Top locales musica"}}
             />
         </Stack.Navigator>
     )

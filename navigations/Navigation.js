@@ -69,7 +69,7 @@ export default function Navigation() {
             <Tab.Screen
                     name="top-musica"
                     component={TopMusicaStack}
-                    options={{title: "Top-Musica"}}
+                    options={{title: "Top Musica"}}
                 />
             <Tab.Screen
                     name="search"

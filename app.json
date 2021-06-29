@@ -25,8 +25,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCvrdW67kjByuPzc-O5wRvOZDgC5y3946k"
+        }
+      },
       "permissions": [
         "CAMERA_ROLL",
+        "MEDIA_LIBRARY",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "LOCATION",

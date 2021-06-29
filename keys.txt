@@ -1,0 +1,22 @@
+AIzaSyCvrdW67kjByuPzc-O5wRvOZDgC5y3946k
+
+
+
+Accessing credentials for luiseduardo9876 in project Musica
+Google Certificate Fingerprint:     35:86:F9:50:0D:40:2C:99:B9:D7:97:9F:59:B7:B4:53:AA:11:F7:01
+Google Certificate Hash (SHA-1):    3586F9500D402C99B9D7979F59B7B453AA11F701
+Google Certificate Hash (SHA-256):  722471A7178CDF2071A0785ACE0730CF5B5EB38238A4402889F13D1944FC0BA6
+Facebook Key Hash:                  NYb5UA1ALJm515efWbe0U6oR9wE=
+
+
+
+ https://expo.io/accounts/luiseduardo9876/builds/ad3c92bd-c016-455e-b89f-a4a8326ed050
+
+
+ https://expo.io/artifacts/9b3519f1-037e-4840-a3f8-b82c176645e0
+
+
+
+
+
+
