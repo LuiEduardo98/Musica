@@ -13,7 +13,7 @@ export default function AccountStack() {
             <Stack.Screen
                 name="accout"
                 component={Account}
-                options={{title: "Account"}}
+                options={{title: "Inicio"}}
             />
             <Stack.Screen
                 name="login"

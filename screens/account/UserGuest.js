@@ -12,7 +12,7 @@ export default function UserGuest() {
             style={styles.viewBody}     
         >
             <Image
-                source={require("../../assets/Logo.gif")}
+                source={require("../../assets/logomusica.png")}
                 resizeMode="contain"
                 style={styles.image}
                 PlaceholderContent={<ActivityIndicator />}
