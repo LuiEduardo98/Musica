@@ -5,13 +5,14 @@ import { addDocumentWithoutId, deleteFavorite, getCurrentUser, getDocumentById, 
 import Loading from '../../components/Loading'
 import CarouselImages from '../../components/CarouselImages'
 import { Rating, ListItem, Icon } from 'react-native-elements' 
-import { formatPhone } from '../../utils/helpers'
+import { callNumber, formatPhone, sendEmail, sendWhatsApp } from '../../utils/helpers'
 import MapMusica from '../../components/musica/MapMusica'
 import { map } from 'lodash'
 import ListReviews from '../../components/musica/ListReviews'
 import { useFocusEffect } from '@react-navigation/native'
 import firebase from 'firebase/app'
 import Toast from 'react-native-easy-toast'
+
 
 
 const widthScreen = Dimensions.get("window").width
@@ -24,10 +25,12 @@ export default function Musicau( {navigation, route}) {
     const [activeSlide, setActiveSlide] = useState(0)
     const [isFavorite, setIsFavorite] = useState(false)
     const [userLogged, setUserLogged] = useState(false)
+    const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(false)
 
     firebase.auth().onAuthStateChanged(user => {
         user ? setUserLogged(true) : setUserLogged(false)
+        setCurrentUser(user)
     })
     
     navigation.setOptions({ title: name})
@@ -126,6 +129,9 @@ export default function Musicau( {navigation, route}) {
                 address={musicau.address}
                 email={musicau.email}
                 phone={formatPhone(musicau.callingCode, musicau.phone)}
+                currentUser={currentUser}
+                callingCode={musicau.callingCode}
+                phoneNoFormat={musicau.phone}
             />
             <ListReviews
              navigation={navigation}
@@ -137,12 +143,37 @@ export default function Musicau( {navigation, route}) {
     )
 }
 
-function MusicaInfo( { name, location, address, email, phone} ) {
+function MusicaInfo( { name, location, address, email, phone, currentUser, callingCode, phoneNoFormat} ) {
     const listInfo = [
-        {text: address, iconName: "map-marker"},
-        {text: phone, iconName: "phone"},
-        {text: email, iconName: "at"},
-    ]
+        {type: "address", text: address, iconLeft: "map-marker"},
+        {type: "phone", text: phone, iconLeft: "phone", iconRight: "whatsapp"},
+        {type: "email", text: email, iconLeft: "at"}
+     ]
+
+     const actionLeft = (type) => {
+        if (type == "phone") {
+            callNumber(phone)
+        } else if (type == "email") {
+            if (currentUser) {
+                sendEmail(email, "Interesado", `Soy ${currentUser.displayName}, estoy interesado en un articulo`)
+            } else {
+                sendEmail(email, "Interesado", `Estoy buscando un articulo`)
+            }
+        }
+     }
+     const actionRight = (type) => {
+        if (type == "phone") {
+            if (currentUser) {
+                sendWhatsApp(`${callingCode} ${phoneNoFormat}`, `Soy ${currentUser.displayName}, estoy interesado en un articulo`)
+            } else {
+                sendWhatsApp(`${callingCode} ${phoneNoFormat}`, `Estoy buscando un articulo`)
+            }
+        } else if (type == "addres") {
+            setModalNotification(true)
+        }
+    }
+
+
 
     return(
         <View style={styles.viewMusicaInfo}>
@@ -162,12 +193,24 @@ function MusicaInfo( { name, location, address, email, phone} ) {
             >
                 <Icon
                     type="material-community"
-                    name={item.iconName}
+                    name={item.iconLeft}
                     color="#442484"
+                    onPress={() => actionLeft(item.type)}
                 />
                 <ListItem.Content>
                     <ListItem.Title>{item.text}</ListItem.Title>
                 </ListItem.Content>
+                {
+                    item.iconRight &&(
+                    <Icon
+                    type="material-community"
+                    name={item.iconRight}
+                    color="#442484"
+                    onPress={() => actionRight(item.type)} 
+                />
+            )
+                }
+                
             </ListItem>
             ))
         }
